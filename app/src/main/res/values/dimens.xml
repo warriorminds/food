@@ -1,0 +1,6 @@
+<resources>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="food_card_elevation">2dp</dimen>
+    <dimen name="item_menu_padding">8dp</dimen>
+    <dimen name="card_margin">8dp</dimen>
+</resources>

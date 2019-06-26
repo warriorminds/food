@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+                                                   xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                   xmlns:tools="http://schemas.android.com/tools"
+                                                   android:layout_width="match_parent"
+                                                   android:layout_height="wrap_content"
+                                                   android:layout_margin="@dimen/card_margin"
+                                                   app:cardBackgroundColor="@android:color/white"
+                                                   app:cardElevation="@dimen/food_card_elevation"
+                                                   app:cardPreventCornerOverlap="true">
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+        <TextView
+                android:id="@+id/food_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintRight_toLeftOf="@+id/food_options"
+                tools:text="Food Title"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:textAppearance="?android:textAppearanceLarge"/>
+
+        <TextView
+                android:id="@+id/food_description"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                tools:text="Food description"
+                app:layout_constraintTop_toBottomOf="@+id/food_title"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@+id/food_options"
+                android:textAppearance="?android:textAppearanceMedium"/>
+
+        <TextView
+                android:id="@+id/food_options"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/item_menu_padding"
+                android:text="@string/three_dots_menu"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:textAppearance="?android:textAppearanceLarge"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>
