@@ -33,7 +33,6 @@ class SearchFragment : Fragment(), FoodAdapter.ItemActions {
     @Inject
     lateinit var searchAdapter: FoodAdapter
     lateinit var viewModel: SearchViewModel
-    private var searchQuery: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidSupportInjection.inject(this)
@@ -51,7 +50,7 @@ class SearchFragment : Fragment(), FoodAdapter.ItemActions {
             Snackbar.make(food_list, getString(R.string.error_search), Snackbar.LENGTH_INDEFINITE)
                 .setAction(getString(R.string.retry)) {
                     food_progress.show()
-                    viewModel.searchFood(searchQuery)
+                    viewModel.searchFood()
                 }
                 .show()
         })
@@ -76,7 +75,6 @@ class SearchFragment : Fragment(), FoodAdapter.ItemActions {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         food_progress.hide()
-        activity!!.toolbar.title = searchQuery
 
         with(food_list) {
             layoutManager = LinearLayoutManager(context)
@@ -98,7 +96,7 @@ class SearchFragment : Fragment(), FoodAdapter.ItemActions {
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         R.id.action_search -> true
         android.R.id.home -> {
-            context?.hideKeyboard(view!!)
+            context?.hideKeyboard(food_list)
             super.onOptionsItemSelected(item)
         }
         else -> super.onOptionsItemSelected(item)
@@ -109,17 +107,24 @@ class SearchFragment : Fragment(), FoodAdapter.ItemActions {
         val searchMenuItem = menu.findItem(R.id.action_search)
         val searchView = searchMenuItem.actionView as SearchView
         searchView.setIconifiedByDefault(false)
-        searchView.requestFocus()
-        context?.showKeyboard()
+
+        if (viewModel.searchTerm.isNotEmpty()) {
+            context?.hideKeyboard(food_list)
+            searchView.setQuery(viewModel.searchTerm, false)
+        } else {
+            searchView.requestFocus()
+            context?.showKeyboard()
+        }
+
         searchView.setSearchableInfo(searchManager.getSearchableInfo(activity!!.componentName))
         searchView.maxWidth = Int.MAX_VALUE
         searchView.setOnQueryTextListener(object : android.widget.SearchView.OnQueryTextListener,
             SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 if (!query.isNullOrEmpty()) {
-                    searchQuery = query
+                    viewModel.searchTerm = query
                     food_progress.show()
-                    viewModel.searchFood(searchQuery)
+                    viewModel.searchFood()
                 }
                 return false
             }

@@ -3,4 +3,6 @@
     <dimen name="food_card_elevation">2dp</dimen>
     <dimen name="item_menu_padding">8dp</dimen>
     <dimen name="card_margin">8dp</dimen>
+    <dimen name="padding_16">16dp</dimen>
+    <dimen name="title_padding">32dp</dimen>
 </resources>

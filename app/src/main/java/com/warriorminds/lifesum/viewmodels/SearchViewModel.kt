@@ -20,11 +20,12 @@ class SearchViewModel @Inject constructor(private val searchRepository: SearchRe
     val fetchingError: MutableLiveData<Boolean> = MutableLiveData()
     val noResults: MutableLiveData<Boolean> = MutableLiveData()
     val savingState: MutableLiveData<Boolean> = MutableLiveData()
+    var searchTerm: String = ""
 
-    fun searchFood(query: String) {
+    fun searchFood() {
         launch {
             val response = withContext(Dispatchers.IO) {
-                searchRepository.searchFoodAsync(query)
+                searchRepository.searchFoodAsync(searchTerm)
             }
 
             if (response != null && response.isNotEmpty()) {

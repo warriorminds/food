@@ -5,10 +5,7 @@ import androidx.room.Room
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.warriorminds.lifesum.db.FoodDatabase
 import com.warriorminds.lifesum.network.FoodService
-import com.warriorminds.lifesum.repositories.MyFoodRepository
-import com.warriorminds.lifesum.repositories.MyFoodRepositoryImpl
-import com.warriorminds.lifesum.repositories.SearchRepository
-import com.warriorminds.lifesum.repositories.SearchRepositoryImpl
+import com.warriorminds.lifesum.repositories.*
 import dagger.Module
 import dagger.Provides
 import okhttp3.Cache
@@ -61,4 +58,8 @@ class LifesumModule(private val context: Context) {
         Room.databaseBuilder(context, FoodDatabase::class.java, "food.db")
             .fallbackToDestructiveMigration()
             .build()
+
+    @Singleton
+    @Provides
+    fun providesLocale(locale: LocaleImpl): Locale = locale
 }

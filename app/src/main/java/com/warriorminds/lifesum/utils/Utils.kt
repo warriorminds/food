@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.TextView
 
 const val FOOD_PARAM = "food_param"
 
@@ -13,6 +14,15 @@ fun View.show() {
 
 fun View.hide() {
     visibility = View.GONE
+}
+
+fun TextView.setValuesOrHide(valueView: TextView, value: String?) {
+    if (value == null) {
+        visibility = View.GONE
+        valueView.visibility = View.GONE
+    } else {
+        valueView.text = value
+    }
 }
 
 fun Context.hideKeyboard(view: View) {
